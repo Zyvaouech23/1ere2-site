@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ajouter une fiche — Classe de 1ère 2</title>
+<meta name="description" content="Dépose une fiche de révision pour la classe de 1ère 2 : choisis la matière, le chapitre, le titre, et envoie ton document.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+<link rel="icon" type="image/png" sizes="48x48" href="images/favicon-48.png">
+<link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+<script>document.documentElement.className+=" js";</script>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/upload.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Aller au contenu principal</a>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-mark" aria-hidden="true">1<sup>re</sup>2</span>
+      <span class="brand-name">Classe de 1<sup>ère</sup> 2<small>EREA Toulouse-Lautrec · Vaucresson</small></span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav" aria-label="Ouvrir le menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <nav class="nav" id="nav" data-open="false" aria-label="Navigation principale">
+      <ul>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="telechargements.html">Téléchargements</a></li>
+        <li><a href="upload.html" aria-current="page">Ajouter une fiche</a></li>
+        <li><a href="a-propos.html">À propos</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="page-head">
+    <div class="container">
+      <span class="eyebrow-dark">Espace de travail</span>
+      <h1>Ajouter une fiche</h1>
+      <p>Tu as fait une fiche de révision et elle peut servir à toute la classe&nbsp;? Dépose-la ici. Elle apparaîtra sur la page Téléchargements, rangée dans sa matière et son chapitre.</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:clamp(40px,5vw,64px)">
+    <div class="container upload-layout">
+
+      <form class="upload-form card" id="upload-form" novalidate>
+
+        <p class="server-state" id="server-state" data-etat="attente">
+          <span class="server-dot" aria-hidden="true"></span>
+          <span id="server-state-text">Connexion au serveur…</span>
+        </p>
+
+        <div class="field">
+          <label for="matiere">Matière <span class="req" aria-hidden="true">*</span></label>
+          <select id="matiere" name="matiere" required aria-describedby="aide-matiere">
+            <option value="">— Choisis une matière —</option>
+          </select>
+          <small class="hint" id="aide-matiere">C'est elle qui décide dans quelle section la fiche sera rangée.</small>
+          <p class="field-error" id="err-matiere" hidden></p>
+        </div>
+
+        <div class="field">
+          <label for="titre">Titre de la fiche <span class="req" aria-hidden="true">*</span></label>
+          <input type="text" id="titre" name="titre" maxlength="120" required
+                 placeholder="Nombre dérivé et tangente" autocomplete="off"
+                 aria-describedby="aide-titre">
+          <small class="hint" id="aide-titre">Le nom affiché à côté du bouton « Télécharger ».</small>
+          <p class="field-error" id="err-titre" hidden></p>
+        </div>
+
+        <div class="field">
+          <label for="chapitre">Chapitre</label>
+          <input type="text" id="chapitre" name="chapitre" maxlength="120"
+                 placeholder="Chapitre 4 — Dérivation" autocomplete="off"
+                 list="chapitres-existants" aria-describedby="aide-chapitre">
+          <datalist id="chapitres-existants"></datalist>
+          <small class="hint" id="aide-chapitre">Facultatif. <strong>Si le chapitre existe déjà, choisis-le dans la liste qui s'ouvre</strong> : les titres doivent être identiques au caractère près pour que les fiches se regroupent.</small>
+          <p class="field-error" id="err-chapitre" hidden></p>
+        </div>
+
+        <div class="field">
+          <span class="label-like" id="label-fichier">Document <span class="req" aria-hidden="true">*</span></span>
+          <div class="dropzone" id="dropzone" tabindex="0" role="button"
+               aria-labelledby="label-fichier" aria-describedby="aide-fichier">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M17 8l-5-5-5 5"/><path d="M12 3v13"/></svg>
+            <strong>Glisse ton fichier ici</strong>
+            <span>ou clique pour le choisir sur ton appareil</span>
+          </div>
+          <input type="file" id="fichier" name="fichier" class="sr-only"
+                 accept=".pdf,.docx,.doc,.odt,.pptx,.ppt,.odp,.xlsx,.png,.jpg,.jpeg,.webp,.md,.txt">
+          <small class="hint" id="aide-fichier">PDF, Word, PowerPoint, OpenDocument, image ou texte — 10 Mo maximum.</small>
+          <div class="file-chosen" id="file-chosen" hidden>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+            <span class="file-chosen-body">
+              <span class="file-chosen-name" id="file-name"></span>
+              <span class="file-chosen-size" id="file-size"></span>
+            </span>
+            <button type="button" class="file-remove" id="file-remove">Retirer<span class="sr-only"> le fichier choisi</span></button>
+          </div>
+          <p class="field-error" id="err-fichier" hidden></p>
+        </div>
+
+        <div class="field" id="field-code" hidden>
+          <label for="code">Code d'accès <span class="req" aria-hidden="true">*</span></label>
+          <input type="password" id="code" name="code" autocomplete="off" aria-describedby="aide-code">
+          <small class="hint" id="aide-code">Le code partagé dans la classe.</small>
+          <p class="field-error" id="err-code" hidden></p>
+        </div>
+
+        <!-- Piège à robots : invisible pour un humain, rempli par les machines. -->
+        <div class="pot-de-miel" aria-hidden="true">
+          <label for="site">Ne remplis pas ce champ</label>
+          <input type="text" id="site" name="site" tabindex="-1" autocomplete="off">
+        </div>
+
+        <div class="progress" id="progress" hidden>
+          <div class="progress-bar"><span id="progress-fill"></span></div>
+          <span class="progress-text" id="progress-text">Envoi en cours…</span>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn--accent" id="submit">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M17 8l-5-5-5 5"/><path d="M12 3v13"/></svg>
+            Envoyer la fiche
+          </button>
+          <a class="btn btn--soft" href="telechargements.html">Retour aux téléchargements</a>
+        </div>
+
+        <p class="form-message" id="message" role="status" aria-live="polite" hidden></p>
+
+      </form>
+
+      <aside class="upload-aside">
+        <div class="notice">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+          <div>
+            <h3>Ce qui se passe après l'envoi</h3>
+            <p>Ton fichier est vérifié, puis déposé automatiquement dans le dossier de la matière. Le site se met à jour tout seul&nbsp;: <strong>compte une à deux minutes</strong> avant de voir la fiche sur la page Téléchargements.</p>
+            <p>Rien n'est supprimé par cette page : en cas d'erreur, préviens simplement Kasper.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Trois conseils pour une bonne fiche</h3>
+          <ul class="tips">
+            <li><strong>Un titre qui parle.</strong> « Nombre dérivé et tangente » aide bien plus que « Fiche 3 ».</li>
+            <li><strong>Réutilise un chapitre existant.</strong> Sinon la classe se retrouve avec deux chapitres presque identiques.</li>
+            <li><strong>Préfère le PDF.</strong> Il s'ouvre partout, sur téléphone comme sur l'ordinateur du lycée, sans déformer la mise en page.</li>
+          </ul>
+        </div>
+      </aside>
+
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <div>
+        <h4>Classe de 1<sup>ère</sup> 2</h4>
+        <p>Lycée EREA Toulouse-Lautrec<br>Vaucresson · Année scolaire <span data-year>2026–2027</span></p>
+      </div>
+      <div>
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="telechargements.html">Téléchargements</a></li>
+          <li><a href="upload.html">Ajouter une fiche</a></li>
+          <li><a href="a-propos.html">À propos</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      Classe de 1ère2 - Lycée EREA Toulouse-Lautrec Tous droit réservé
+    </div>
+  </div>
+</footer>
+
+<script src="data/fiches.js"></script>
+<script src="js/main.js"></script>
+<script src="js/api.js"></script>
+<script src="js/upload.js"></script>
+</body>
+</html>
