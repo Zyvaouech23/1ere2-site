@@ -36,7 +36,8 @@ const MATIERES = [
   { id: "enseignement-scientifique", nom: "Enseignement scientifique",       court: "ES",    couleur: "#2A6A6A" },
   { id: "anglais",                   nom: "Anglais LV1",                     court: "ANG",   couleur: "#33508F" },
   { id: "espagnol",                  nom: "Espagnol LV2",                    court: "ESP",   couleur: "#A16207" },
-  { id: "accompagnement",            nom: "Accompagnement personnalisé",     court: "AP",    couleur: "#55606E" }
+  { id: "accompagnement",            nom: "Accompagnement personnalisé",     court: "AP",    couleur: "#55606E" },
+  { id: "allemand",                  nom: "Allemand",                        court: "DE",    couleur: "#55606E" }
 ];
 
 const FICHES = [
