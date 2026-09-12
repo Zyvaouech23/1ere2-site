@@ -1,0 +1,71 @@
+# ============================================================
+#  Render — Classe de 1ère 2
+#  Deux services : le site (statique) et l'API de dépôt (Python).
+#
+#  ⚠️ Ton site existe DÉJÀ sur Render, créé à la main dans le tableau de bord.
+#  Ce fichier sert alors de référence écrite de la configuration : il décrit
+#  ce qui doit être réglé, sans rien imposer. Si tu l'appliques comme
+#  Blueprint, Render recréera les deux services — vérifie d'abord que les
+#  noms correspondent aux tiens, sinon tu te retrouveras avec des doublons.
+#  La marche à suivre pas à pas est dans LISEZ-MOI.md, section
+#  « Mise en service ».
+#
+#  Le token GitHub n'est PAS dans ce fichier : il se remplit à la main
+#  dans Render > service > Environment (sync: false ci-dessous).
+# ============================================================
+
+services:
+  # ---------- Le site, tel qu'il est aujourd'hui ----------
+  - type: web
+    name: oneere2-tl
+    runtime: static
+    buildCommand: ""
+    staticPublishPath: .
+    pullRequestPreviewsEnabled: false
+    headers:
+      - path: /data/fiches.json
+        name: Cache-Control
+        value: no-cache
+    routes:
+      # Le code du serveur n'a rien à faire dans un navigateur : on renvoie
+      # les curieux vers l'accueil. (Il ne contient aucun secret — le token
+      # vit dans les variables d'environnement — mais autant rester net.)
+      - type: redirect
+        source: /backend/*
+        destination: /
+      - type: rewrite
+        source: /
+        destination: /index.html
+
+  # ---------- L'API de dépôt des fiches ----------
+  - type: web
+    name: 1ere2-api
+    runtime: python
+    plan: free
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn src.server:app --bind 0.0.0.0:$PORT --workers 1 --threads 4 --timeout 60
+    healthCheckPath: /api/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11.9"
+      - key: GITHUB_TOKEN          # à remplir à la main dans Render
+        sync: false
+      - key: GITHUB_OWNER
+        value: Zyvaouech23
+      - key: GITHUB_REPOSITORY
+        value: 1ere2-site
+      - key: GITHUB_BRANCH
+        value: main
+      - key: UPLOAD_DIRECTORY
+        value: fiches
+      - key: INDEX_PATH
+        value: data/fiches.json
+      - key: ALLOWED_ORIGINS
+        value: https://oneere2-tl.onrender.com
+      - key: UPLOAD_CODE           # vide = dépôt ouvert à tous
+        value: ""
+      - key: UPLOAD_ENABLED
+        value: "true"
+      - key: MAX_FILE_MO
+        value: "10"
