@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Téléchargements — Classe de 1ère 2</title>
+<meta name="description" content="Toutes les fiches de révision de la classe de 1ère 2, matière par matière, à télécharger librement.">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+<link rel="icon" type="image/png" sizes="48x48" href="images/favicon-48.png">
+<link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+<script>document.documentElement.className+=" js";</script>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Aller au contenu principal</a>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-mark" aria-hidden="true">1<sup>re</sup>2</span>
+      <span class="brand-name">Classe de 1<sup>ère</sup> 2<small>EREA Toulouse-Lautrec · Vaucresson</small></span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav" aria-label="Ouvrir le menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <nav class="nav" id="nav" data-open="false" aria-label="Navigation principale">
+      <ul>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="telechargements.html" aria-current="page">Téléchargements</a></li>
+        <li><a href="eleves.html">La classe</a></li>
+        <li><a href="a-propos.html">À propos</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="page-head">
+    <div class="container">
+      <span class="eyebrow-dark">Espace de travail</span>
+      <h1>Fiches de révision</h1>
+      <p>Toutes les fiches de la classe, rangées par matière. Clique sur « Télécharger » pour récupérer un document et le garder sur ton ordinateur ou ta tablette.</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:clamp(40px,5vw,64px)">
+    <div class="container">
+
+      <div class="notice">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+        <div>
+          <h3>Comment cette page évolue</h3>
+          <p>Cette page est alimentée au fur et à mesure de l'année. <strong>De nouvelles fiches de révision sont ajoutées à chaque période de révisions, avant chaque évaluation</strong> — contrôles de chapitre, devoirs surveillés, bacs blancs et épreuves anticipées de français et de maths.</p>
+          <p>Si une matière est encore vide, c'est simplement que les fiches correspondantes n'ont pas encore été mises en ligne : reviens y jeter un œil à l'approche du prochain contrôle.</p>
+        </div>
+      </div>
+
+      <div class="search-box">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        <label class="sr-only" for="search">Rechercher une fiche</label>
+        <input type="search" id="search" placeholder="Rechercher une fiche, un chapitre…" autocomplete="off">
+      </div>
+
+      <div class="filters" id="filters" role="group" aria-label="Filtrer par matière"></div>
+
+      <p style="color:var(--color-muted-fg);font-size:.9rem;font-weight:600" id="total-fiches"></p>
+
+      <div id="subjects"></div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <div>
+        <h4>Classe de 1<sup>ère</sup> 2</h4>
+        <p>Lycée EREA Toulouse-Lautrec<br>Vaucresson · Année scolaire <span data-year>2026–2027</span></p>
+      </div>
+      <div>
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="telechargements.html">Téléchargements</a></li>
+          <li><a href="eleves.html">La classe</a></li>
+          <li><a href="a-propos.html">À propos</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Délégués provisoires</h4>
+        <ul>
+          <li>Eliott</li>
+          <li>Timéo</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      Classe de 1ère2 - Lycée EREA Toulouse-Lautrec Tous droit réservé
+    </div>
+  </div>
+</footer>
+
+<script src="data/fiches.js"></script>
+<script src="js/main.js"></script>
+<script src="js/telechargements.js"></script>
+</body>
+</html>
