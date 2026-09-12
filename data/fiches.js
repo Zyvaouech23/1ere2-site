@@ -42,6 +42,6 @@ const MATIERES = [
 const FICHES = [
 
   // ——— Ajoute tes fiches ici, une ligne par fiche ———
-  // { matiere: "francais", chapter_title: "Méthode du commentaire", titre: "Les figures de style", fichier: "fiches/francais/figures-de-style.pdf", date: "12/09/2026", poids: "PDF · 310 Ko" },
+  { matiere: "physique-chimie", chapter_title: "Lentilles minces convergentes", titre: "Fiches - Lentilles minces", fichier: "fiches/physique-chimie/Fiche_Lentilles_convergentes.docx", date: "12/09/2026", poids: "Word · 28 ko" },
 
 ];
