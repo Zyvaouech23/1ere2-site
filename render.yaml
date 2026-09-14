@@ -1,5 +1,5 @@
 # ============================================================
-#  Render — Classe de 1ère 2
+#  Render — Niveau 1ère - EREA Toulouse-Lautrec
 #  Deux services : le site (statique) et l'API de dépôt (Python).
 #
 #  ⚠️ Ton site existe DÉJÀ sur Render, créé à la main dans le tableau de bord.
@@ -24,6 +24,10 @@ services:
     pullRequestPreviewsEnabled: false
     headers:
       - path: /data/fiches.json
+        name: Cache-Control
+        value: no-cache
+      # Un article tout juste publié doit apparaître sans attendre le cache.
+      - path: /data/articles.js
         name: Cache-Control
         value: no-cache
     routes:

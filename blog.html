@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>La classe — Niveau 1ère - EREA Toulouse-Lautrec</title>
-<meta name="description" content="Les dix-neuf élèves de première du lycée EREA Toulouse-Lautrec.">
+<title>Blog — Niveau 1ère - EREA Toulouse-Lautrec</title>
+<meta name="description" content="Le blog des élèves de 1ère du lycée EREA Toulouse-Lautrec à Vaucresson : les temps forts de l'année, racontés en photos.">
 <link rel="icon" href="favicon.ico?v=2" sizes="any">
 <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16.png?v=2">
 <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png?v=2">
@@ -30,14 +30,38 @@
         <li><a href="index.html">Accueil</a></li>
         <li><a href="telechargements.html">Téléchargements</a></li>
         <li><a href="upload.html">Ajouter une fiche</a></li>
-        <li><a href="blog.html">Blog</a></li>
-        <li><a href="eleves.html" aria-current="page">La classe</a></li>
+        <li><a href="blog.html" aria-current="page">Blog</a></li>
         <li><a href="a-propos.html">À propos</a></li>
       </ul>
     </nav>
   </div>
 </header>
 
+<main id="main">
+
+  <section class="page-head">
+    <div class="container">
+      <span class="eyebrow-dark">Vie des premières</span>
+      <h1>Le blog</h1>
+      <p>Sorties, projets, temps forts de l'année : ce qui se passe chez les premières du lycée EREA Toulouse-Lautrec, raconté en photos.</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:clamp(40px,5vw,64px)">
+    <div class="container">
+
+      <p class="blog-count" id="blog-count"></p>
+
+      <div class="blog-grid" id="blog-list"></div>
+
+      <noscript>
+        <div class="card"><div class="empty-state"><strong>JavaScript est désactivé</strong>Active-le dans ton navigateur pour afficher les articles du blog.</div></div>
+      </noscript>
+
+    </div>
+  </section>
+
+</main>
 
 <footer class="site-footer">
   <div class="container">
@@ -53,11 +77,9 @@
           <li><a href="telechargements.html">Téléchargements</a></li>
           <li><a href="upload.html">Ajouter une fiche</a></li>
           <li><a href="blog.html">Blog</a></li>
-          <li><a href="eleves.html">La classe</a></li>
           <li><a href="a-propos.html">À propos</a></li>
         </ul>
       </div>
-      
     </div>
     <div class="footer-bottom">
       Niveau 1ère - EREA Toulouse-Lautrec · Tous droits réservés
@@ -65,6 +87,8 @@
   </div>
 </footer>
 
+<script src="data/articles.js"></script>
+<script src="js/blog.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>

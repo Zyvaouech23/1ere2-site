@@ -1,5 +1,5 @@
 /* ============================================================
-   Classe de 1ère 2 — Lycée EREA Toulouse-Lautrec
+   Niveau 1ère - EREA Toulouse-Lautrec
    Design system : bleu marine institutionnel (#1E3A5F)
                    + bleu d'action (#1D4ED8) + ocre (#A16207)
    Typographie : EB Garamond (titres) / Lato (texte)
@@ -430,6 +430,57 @@ code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; fo
   .about-split { grid-template-columns: 1fr; gap: 30px; }
   .about-emblem { max-width: 300px; margin-inline: auto; }
   .fact-list > div { grid-template-columns: 1fr; gap: 2px; }
+}
+
+/* ---------- Page Blog ---------- */
+.blog-count { color: var(--color-muted-fg); font-size: .9rem; font-weight: 600; }
+.blog-grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); }
+.blog-empty { grid-column: 1 / -1; }
+
+.card.post-card { position: relative; display: flex; flex-direction: column; padding: 0; overflow: hidden; }
+.post-card:focus-within { border-color: var(--color-primary-light); box-shadow: var(--shadow); }
+.post-card-media { margin: 0; padding: 16px 16px 0; }
+.post-card-media img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; border-radius: var(--radius); background: var(--color-muted); }
+.post-card-media figcaption { margin-top: 10px; font-size: .8rem; color: var(--color-muted-fg); text-align: center; line-height: 1.5; }
+.post-card-body { display: flex; flex-direction: column; flex: 1; padding: 22px 28px 28px; }
+.post-event {
+  display: inline-block; margin-bottom: 10px;
+  font-size: .72rem; font-weight: 900; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--color-accent-dark);
+}
+.post-card h2 { font-size: 1.45rem; margin-bottom: .25em; }
+.post-card h2 a { color: var(--color-primary-dark); text-decoration: none; }
+.post-card h2 a::after { content: ""; position: absolute; inset: 0; }
+.post-card h2 a:focus-visible { outline: none; }
+.post-date { display: block; margin-bottom: 12px; font-size: .82rem; font-weight: 700; color: var(--color-muted-fg); }
+.card.post-card p { margin-bottom: 0; }
+.post-more {
+  display: inline-flex; align-items: center; gap: 7px; margin-top: auto; padding-top: 18px;
+  font-weight: 700; font-size: .9rem; color: var(--color-action-dark);
+}
+.post-more svg { transition: transform .2s ease; }
+.post-card:hover .post-more svg { transform: translateX(3px); }
+
+.article-date { display: block; margin: -2px 0 14px; font-size: .9rem; font-weight: 700; color: var(--color-muted-fg); letter-spacing: .02em; }
+.article-wrap { max-width: 780px; margin-inline: auto; }
+.article-body > p { font-size: 1.05rem; margin-bottom: 1.2rem; }
+.article-body > h2 { font-size: clamp(1.45rem, 3vw, 1.9rem); margin: 1.6em 0 .5em; }
+.article-figure {
+  margin: 36px 0; padding: 22px; background: var(--color-surface);
+  border: 1px solid var(--color-border); border-radius: var(--radius-lg);
+}
+.article-figure img { width: 100%; border-radius: var(--radius); }
+.article-figure figcaption { margin-top: 14px; font-size: .8rem; color: var(--color-muted-fg); text-align: center; line-height: 1.5; }
+.article-figure--cover { margin-top: 0; }
+.article-gallery { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); margin: 36px 0; }
+.article-gallery .article-figure { margin: 0; padding: 16px; }
+.article-gallery img { aspect-ratio: 4 / 3; object-fit: cover; }
+.article-foot { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 44px; padding-top: 28px; border-top: 1px solid var(--color-border); }
+.article-body:empty ~ .article-foot { margin-top: 0; padding-top: 0; border-top: 0; }
+
+@media (max-width: 640px) {
+  .article-figure { padding: 14px; }
+  .post-card-body { padding: 20px 22px 24px; }
 }
 
 /* ---------- Révélation au scroll ---------- */

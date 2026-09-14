@@ -1,5 +1,5 @@
 /* ============================================================
-   Scripts communs — Classe de 1ère 2
+   Scripts communs — Niveau 1ère - EREA Toulouse-Lautrec
    ============================================================ */
 (function () {
   "use strict";
