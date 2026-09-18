@@ -6,7 +6,26 @@ Né dans la 1ère 2, le site s'adresse désormais à tous les élèves de premi�
 
 ## Ouvrir le site
 
-Double-clique sur **`index.html`**. Le site s'ouvre dans ton navigateur, sans rien installer.
+Double-clique sur **`index.html`** : le site s'ouvre dans ton navigateur, sans rien installer.
+C'est parfait pour relire un texte ou vérifier une mise en page.
+
+> ⚠️ **Une chose ne marche pas ainsi** : les fiches déposées par les élèves via le
+> formulaire vivent dans `data/fiches.json`, et un navigateur refuse de lire ce
+> fichier quand la page a été ouverte depuis le disque (adresse en `file://`).
+> La page Téléchargements affichera alors « Aucune fiche pour l'instant » sur des
+> matières qui en ont — elle te le signale maintenant par un encadré orange.
+
+**Pour voir la page Téléchargements telle qu'elle est vraiment**, ouvre le site par
+une adresse `http://`. Le plus court, dans un terminal placé sur le dossier du site :
+
+```bash
+python3 -m http.server 8000
+```
+
+puis va sur <http://localhost:8000>. `Ctrl+C` dans le terminal pour arrêter.
+(Sinon : l'extension « Live Server » de VS Code fait la même chose en un clic.)
+
+Et bien sûr, le site en ligne, lui, n'a jamais ce problème.
 
 ## Les pages
 
@@ -117,11 +136,49 @@ Enregistre, recharge la page : la fiche apparaît toute seule, avec son bouton d
 | Champ | Rôle |
 |---|---|
 | `matiere` | l'identifiant de la matière (voir la liste `MATIERES` en haut du fichier) |
+| `classe` | `"1ere1"` ou `"1ere2"` — **uniquement pour les matières du tronc commun** (voir juste en dessous) |
 | `chapter_title` | **le titre du chapitre, affiché en gros au-dessus des fiches** |
 | `titre` | le nom de la fiche |
 | `fichier` | le chemin du PDF depuis la racine du site |
 | `date` | facultatif — date d'ajout |
 | `poids` | facultatif — type et taille du fichier |
+
+### Les trois grandes sections, et le champ `classe`
+
+La page Téléchargements est découpée en trois :
+
+| Section | Ce qu'on y trouve |
+|---|---|
+| **Spécialités** | SVT, Physique-Chimie, Maths, SES, LLCE — **hors classes** : le cours de spécialité réunit la 1ère 1 et la 1ère 2, donc les fiches y sont les mêmes pour tout le monde. |
+| **1ère 1** | Histoire-Géo-EMC, Français, Enseignement scientifique, Anglais LV1, Espagnol LV2, AP, Allemand — avec les fiches de la 1ère 1. |
+| **1ère 2** | Les mêmes matières, avec les fiches de la 1ère 2. |
+
+Concrètement, dans `data/fiches.js` chaque matière porte un champ `groupe` :
+`"specialite"` (affichée une fois, hors classes) ou `"commun"` (affichée deux
+fois, une par classe).
+
+Le champ `classe` d'une fiche ne sert donc que pour les matières `"commun"` :
+
+```js
+{ matiere: "histoire-geo", classe: "1ere1", chapter_title: "…", … },
+```
+
+Si tu l'oublies, la fiche part en **1ère 2** (c'est la valeur `CLASSE_PAR_DEFAUT`,
+en haut de `data/fiches.js`) : c'est ce qui range automatiquement toutes les
+fiches écrites avant la séparation en deux classes. Sur une spécialité, le
+champ est simplement ignoré.
+
+> Si tu ajoutes ou déplaces une matière, pense à mettre à jour le miroir
+> côté serveur : `MATIERES`, `CLASSES` et `MATIERES_COMMUNES` dans
+> `backend/src/config.py` doivent rester identiques à `data/fiches.js`.
+
+### Les chapitres se replient
+
+Chaque titre de chapitre est un bouton, précédé d'un chevron : on clique
+dessus pour voir les fiches qu'il contient. **Tous les chapitres sont repliés
+à l'ouverture de la page** — sinon, après une année entière, une matière
+occuperait dix écrans. Pendant une recherche, ils s'ouvrent d'office pour
+que les résultats soient visibles.
 
 ### Comment fonctionne `chapter_title`
 
@@ -134,15 +191,19 @@ sont regroupées sous ce titre, dans l'ordre où tu les écris dans le fichier.
 { matiere: "francais", chapter_title: "Le théâtre du XVIIe siècle", titre: "Molière — Le Malade imaginaire", ... },
 ```
 
-donne, sur la page Français :
+donne, sur la page Français (une fois les chapitres dépliés) :
 
 ```
-Méthode du commentaire                    2 fiches
-  · Les figures de style
-  · Construire un axe de lecture
-Le théâtre du XVIIe siècle                 1 fiche
-  · Molière — Le Malade imaginaire
+> Méthode du commentaire                   2 fiches
+    · Les figures de style
+    · Construire un axe de lecture
+> Le théâtre du XVIIe siècle                1 fiche
+    · Molière — Le Malade imaginaire
 ```
+
+Le regroupement se fait matière **et classe** par classe : un même
+`chapter_title` en 1ère 1 et en 1ère 2 donne deux chapitres distincts,
+chacun dans sa section.
 
 Attention : « Chapitre 4 » et « chapitre 4 » sont considérés comme **deux chapitres différents**.
 Copie-colle le titre d'une fiche à l'autre pour éviter les doublons.

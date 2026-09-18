@@ -91,6 +91,29 @@ class Config(object):
         "allemand": "Allemand",
     }
 
+    # ---------- Classes ----------
+    # Doit rester le miroir exact de CLASSES dans data/fiches.js.
+    CLASSES = {
+        "1ere1": "1ere 1",
+        "1ere2": "1ere 2",
+    }
+
+    # Matieres dedoublees : chaque classe a son propre compartiment sur la
+    # page Telechargements, car elle ne suit pas le meme cours. Toutes les
+    # autres matieres sont des specialites, dont le cours reunit les deux
+    # classes : leur demander une classe n'aurait pas de reponse juste.
+    # Doit rester le miroir des matieres marquees groupe "commun" dans
+    # data/fiches.js.
+    MATIERES_COMMUNES = {
+        "histoire-geo",
+        "francais",
+        "enseignement-scientifique",
+        "anglais",
+        "espagnol",
+        "accompagnement",
+        "allemand",
+    }
+
     VERSION = "1.0.0"
 
 

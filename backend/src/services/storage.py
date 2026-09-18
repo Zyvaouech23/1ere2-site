@@ -4,7 +4,11 @@ Fabrication de l'entree de fiche
 Traduit un formulaire valide en un objet exactement au format attendu par
 js/telechargements.js :
 
-    { matiere, chapter_title, titre, fichier, date, poids }
+    { matiere, classe, chapter_title, titre, fichier, date, poids }
+
+Le champ 'classe' ("1ere1" ou "1ere2") n'est ecrit que pour les matieres
+dedoublees : une fiche de specialite s'affiche hors des sections de classe,
+puisque les deux classes y suivent le meme cours.
 
 Le champ 'fichier' est un chemin relatif a la racine du site, puisque c'est
 ainsi que la page construit ses liens de telechargement.
@@ -65,8 +69,8 @@ def chemin_fiche(matiere, titre, extension, chemins_pris):
     return candidat
 
 
-def construire_entree(matiere, titre, chapitre, chemin, octets, extension):
-    return {
+def construire_entree(matiere, classe, titre, chapitre, chemin, octets, extension):
+    entree = {
         "matiere": matiere,
         "chapter_title": chapitre,
         "titre": titre,
@@ -74,3 +78,6 @@ def construire_entree(matiere, titre, chapitre, chemin, octets, extension):
         "date": date_du_jour(),
         "poids": validation.poids_lisible(octets, extension),
     }
+    if classe:
+        entree["classe"] = classe
+    return entree

@@ -84,6 +84,22 @@ def valider_matiere(valeur):
     return valeur
 
 
+def valider_classe(valeur, matiere):
+    """
+    La classe n'a de sens que pour une matiere dedoublee (tronc commun).
+    Pour une specialite, le cours reunit la 1ere 1 et la 1ere 2 : on renvoie
+    une chaine vide plutot que de ranger la fiche dans une seule des deux.
+    """
+    if matiere not in config.MATIERES_COMMUNES:
+        return ""
+    valeur = (valeur or "").strip()
+    if not valeur:
+        raise ErreurValidation("Choisis la classe concernee.", "classe")
+    if valeur not in config.CLASSES:
+        raise ErreurValidation("Cette classe n'existe pas.", "classe")
+    return valeur
+
+
 def _valider_texte(valeur, champ, libelle, mini, maxi, obligatoire):
     valeur = re.sub(r"\s+", " ", (valeur or "").strip())
     if not valeur:

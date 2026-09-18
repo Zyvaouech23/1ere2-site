@@ -4,6 +4,8 @@ Depot d'une fiche
 POST /api/upload  (multipart/form-data)
 
   matiere   obligatoire   identifiant de la matiere (liste blanche)
+  classe    selon matiere "1ere1" ou "1ere2" ; exige pour les matieres du
+                          tronc commun, ignore pour les specialites
   titre     obligatoire   nom affiche de la fiche
   chapitre  facultatif    titre du chapitre de regroupement
   fichier   obligatoire   le document lui-meme
@@ -58,6 +60,7 @@ def upload():
     # 5. Champs texte.
     try:
         matiere = validation.valider_matiere(request.form.get("matiere"))
+        classe = validation.valider_classe(request.form.get("classe"), matiere)
         titre = validation.valider_titre(request.form.get("titre"))
         chapitre = validation.valider_chapitre(request.form.get("chapitre"))
     except ErreurValidation as erreur:
@@ -87,7 +90,7 @@ def upload():
         github.deposer_fichier(chemin, contenu, titre)
 
         entree = storage.construire_entree(
-            matiere, titre, chapitre, chemin, len(contenu), extension
+            matiere, classe, titre, chapitre, chemin, len(contenu), extension
         )
         github.ajouter_a_index(entree)
     except github.ErreurGitHub as erreur:

@@ -68,6 +68,15 @@
           <p class="field-error" id="err-matiere" hidden></p>
         </div>
 
+        <div class="field" id="field-classe" hidden>
+          <label for="classe">Classe <span class="req" aria-hidden="true">*</span></label>
+          <select id="classe" name="classe" aria-describedby="aide-classe">
+            <option value="">— Choisis ta classe —</option>
+          </select>
+          <small class="hint" id="aide-classe">Cette matière a un compartiment par classe : la 1ère 1 et la 1ère 2 ne suivent pas le même cours. Les spécialités, elles, sont communes aux deux classes — ce choix n'y apparaît pas.</small>
+          <p class="field-error" id="err-classe" hidden></p>
+        </div>
+
         <div class="field">
           <label for="titre">Titre de la fiche <span class="req" aria-hidden="true">*</span></label>
           <input type="text" id="titre" name="titre" maxlength="120" required

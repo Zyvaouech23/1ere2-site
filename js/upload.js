@@ -21,6 +21,8 @@
 
   var el = {
     matiere: document.getElementById("matiere"),
+    classe: document.getElementById("classe"),
+    champClasse: document.getElementById("field-classe"),
     titre: document.getElementById("titre"),
     chapitre: document.getElementById("chapitre"),
     chapitres: document.getElementById("chapitres-existants"),
@@ -70,7 +72,7 @@
   }
 
   function viderErreurs() {
-    ["matiere", "titre", "chapitre", "fichier", "code"].forEach(function (c) {
+    ["matiere", "classe", "titre", "chapitre", "fichier", "code"].forEach(function (c) {
       erreurChamp(c, "");
     });
     el.message.hidden = true;
@@ -97,7 +99,7 @@
     el.etatTexte.textContent = texte;
   }
 
-  /* ---------- Liste des matières, depuis data/fiches.js ---------- */
+  /* ---------- Listes des matières et des classes, depuis data/fiches.js ---------- */
 
   function remplirMatieres() {
     if (typeof MATIERES === "undefined") return;
@@ -107,6 +109,37 @@
       option.textContent = m.nom;
       el.matiere.appendChild(option);
     });
+  }
+
+  function remplirClasses() {
+    if (typeof CLASSES === "undefined") return;
+    CLASSES.forEach(function (c) {
+      var option = document.createElement("option");
+      option.value = c.id;
+      option.textContent = c.nom;
+      el.classe.appendChild(option);
+    });
+  }
+
+  /* Une spécialité réunit les deux classes : demander « 1ère 1 ou 1ère 2 ? »
+     n'aurait alors aucune réponse juste. Le champ n'apparaît donc que pour
+     les matières dédoublées (groupe "commun"). */
+  function matiereEstCommune() {
+    if (typeof MATIERES === "undefined") return false;
+    var id = el.matiere.value;
+    var trouvee = null;
+    MATIERES.forEach(function (m) { if (m.id === id) trouvee = m; });
+    return !!trouvee && trouvee.groupe === "commun";
+  }
+
+  function majClasse() {
+    var commune = matiereEstCommune();
+    el.champClasse.hidden = !commune;
+    el.classe.required = commune;
+    if (!commune) {
+      el.classe.value = "";
+      erreurChamp("classe", "");
+    }
   }
 
   /* ---------- Chapitres déjà existants ----------
@@ -120,12 +153,17 @@
       if (!f || !f.matiere) return;
       var titre = String(f.chapter_title || f.chapitre || "").trim();
       if (!titre) return;
-      chapitresConnus.push({ matiere: f.matiere, titre: titre });
+      chapitresConnus.push({
+        matiere: f.matiere,
+        classe: String(f.classe || "").trim(),
+        titre: titre
+      });
     });
   }
 
   function majChapitres() {
     var matiere = el.matiere.value;
+    var classe = el.classe.required ? el.classe.value : "";
     var vus = {};
     // On construit les <option> par le DOM plutôt qu'en assemblant du HTML :
     // un titre de chapitre contenant un guillemet ou un chevron reste alors
@@ -133,6 +171,10 @@
     el.chapitres.innerHTML = "";
     chapitresConnus.forEach(function (c) {
       if (matiere && c.matiere !== matiere) return;
+      // Chaque classe a ses propres chapitres : ne pas proposer à la 1ère 1
+      // le découpage de la 1ère 2. Une fiche d'avant la séparation n'a pas
+      // de classe : elle appartient à la 1ère 2 (CLASSE_PAR_DEFAUT).
+      if (classe && (c.classe || "1ere2") !== classe) return;
       if (vus[c.titre]) return;
       vus[c.titre] = true;
       var option = document.createElement("option");
@@ -288,6 +330,10 @@
     var ok = true;
     if (!el.matiere.value) { erreurChamp("matiere", "Choisis une matière."); ok = false; }
 
+    if (el.classe.required && !el.classe.value) {
+      erreurChamp("classe", "Choisis la classe concernée."); ok = false;
+    }
+
     var titre = el.titre.value.trim();
     if (titre.length < 3) { erreurChamp("titre", "Donne un titre d'au moins 3 caractères."); ok = false; }
 
@@ -320,6 +366,7 @@
 
     var donnees = new FormData();
     donnees.append("matiere", el.matiere.value);
+    if (el.classe.required) donnees.append("classe", el.classe.value);
     donnees.append("titre", el.titre.value.trim());
     donnees.append("chapitre", el.chapitre.value.trim());
     donnees.append("fichier", fichierChoisi, fichierChoisi.name);
@@ -340,7 +387,11 @@
         var fiche = reponse.fiche || {};
         afficherMessage("succes",
           "<strong>Fiche envoyée !</strong><br>« " + echapper(fiche.titre || "") + " » a été déposée en "
-          + echapper(el.matiere.options[el.matiere.selectedIndex].textContent) + ". "
+          + echapper(el.matiere.options[el.matiere.selectedIndex].textContent)
+          + (el.classe.required && el.classe.selectedIndex > 0
+              ? " (" + echapper(el.classe.options[el.classe.selectedIndex].textContent) + ")"
+              : "")
+          + ". "
           + "Elle apparaîtra sur la <a href=\"telechargements.html\">page Téléchargements</a> "
           + "dans une à deux minutes, le temps que le site se mette à jour.");
 
@@ -370,8 +421,14 @@
   /* ---------- Démarrage ---------- */
 
   remplirMatieres();
+  remplirClasses();
+  majClasse();
   chargerChapitres();
   brancherDropzone();
   verifierServeur();
-  el.matiere.addEventListener("change", majChapitres);
+  el.matiere.addEventListener("change", function () {
+    majClasse();
+    majChapitres();
+  });
+  el.classe.addEventListener("change", majChapitres);
 })();
