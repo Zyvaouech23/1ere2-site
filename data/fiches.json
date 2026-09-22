@@ -23,5 +23,14 @@
     "fichier": "fiches/ses/fiche-premiere-voter-eleves.pdf",
     "date": "18/09/2026",
     "poids": "PDF · 27 Ko"
+  },
+  {
+    "matiere": "francais",
+    "chapter_title": "Discours de la servitude volontaire - La Boétie",
+    "titre": "Fiche - DSV - Contrôle de lecture",
+    "fichier": "fiches/francais/fiche-dsv-controle-de-lecture.pdf",
+    "date": "22/09/2026",
+    "poids": "PDF · 40 Ko",
+    "classe": "1ere1"
   }
 ]
