@@ -32,5 +32,13 @@
     "date": "22/09/2026",
     "poids": "PDF · 40 Ko",
     "classe": "1ere1"
+  },
+  {
+    "matiere": "maths",
+    "chapter_title": "Chapitre 0 - Appuis de base pour la 1ère et terminale",
+    "titre": "Fiche - Fonctions de références",
+    "fichier": "fiches/maths/fiche-fonctions-de-references.pdf",
+    "date": "26/09/2026",
+    "poids": "PDF · 85 Ko"
   }
 ]
