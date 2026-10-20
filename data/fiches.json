@@ -67,5 +67,14 @@
     "date": "20/10/2026",
     "poids": "Word · 18 Ko",
     "classe": "1ere2"
+  },
+  {
+    "matiere": "francais",
+    "chapter_title": "Fichage - Lecture linéaire",
+    "titre": "Fichage LL3",
+    "fichier": "fiches/francais/fichage-ll3.docx",
+    "date": "20/10/2026",
+    "poids": "Word · 17 Ko",
+    "classe": "1ere2"
   }
 ]
