@@ -49,5 +49,14 @@
     "date": "26/09/2026",
     "poids": "PDF · 98 Ko",
     "classe": "1ere2"
+  },
+  {
+    "matiere": "francais",
+    "chapter_title": "Fichage - Lecture linéaire",
+    "titre": "Fichage LL1",
+    "fichier": "fiches/francais/fichage-ll1.docx",
+    "date": "20/10/2026",
+    "poids": "Word · 18 Ko",
+    "classe": "1ere2"
   }
 ]
